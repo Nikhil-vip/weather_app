@@ -1,0 +1,41 @@
+#navbar {
+  background: linear-gradient(135deg,
+      #0b1f3a,
+      #1f4f7a,
+      #4fa3d1);
+
+
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: sticky;
+  top: 0;
+}
+
+#logo_conatiner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#logo {
+  margin-right: 10px;
+  color: white;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#search {
+  height: 40px;
+  width: 130px;
+  margin-right: 40px;
+  border-radius: 20px 20px 20px 20px;
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+  display: flex;
+}

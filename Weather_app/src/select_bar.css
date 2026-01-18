@@ -1,0 +1,25 @@
+.selection-bar {
+  display: flex;
+  justify-content: space-around;
+  background-color: #f0f0f0;
+  padding: 10px 0;
+  position: sticky;
+  top: 42px;
+}
+
+#today,
+#weekly,
+#map,
+#ten-days {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+}
+
+#today:hover,
+#weekly:hover,
+#map:hover,
+#ten-days:hover {
+  color: rgb(110, 110, 110);
+}

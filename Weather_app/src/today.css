@@ -1,0 +1,66 @@
+.today_box {
+  height: 300px;
+  width: 380px;
+  background-color: #b6b8b9;
+  margin: 20px auto;
+  border-radius: 25px 25px 25px 25px;
+}
+
+#location {
+  text-align: center;
+  font-size: xx-large;
+  padding-top: 10px;
+  color: rgb(191, 26, 26);
+}
+
+#pic {
+  height: 100px;
+  width: 100px;
+  background-color: white;
+  margin: 10px auto;
+  border-radius: 50%;
+}
+
+#weather {
+  text-align: center;
+  font-size: x-large;
+  padding-top: 10px;
+  color: rgb(26, 26, 191);
+}
+
+#temp {
+  text-align: center;
+  font-size: xx-large;
+  padding-top: 10px;
+  color: rgb(26, 191, 26);
+}
+
+#location_button {
+  display: block;
+  margin: 15px auto;
+  padding: 10px 20px;
+  font-size: large;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#weektitle {
+  text-align: center;
+  font-weight: bolder;
+  color: rgb(231, 4, 4);
+}
+
+#weekkly {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80px;
+  width: 80%;
+  margin: 20px auto;
+  background-color: #4CAF50;
+  border-radius: 10px 10px 10px 10px;
+  justify-content: space-around;
+}
