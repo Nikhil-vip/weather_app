@@ -19,7 +19,7 @@ const Footer = () => {
 
           <h6 id="about_us"
             style={{ cursor: "pointer" }}
-            onClick={() => navigate("/tendays")}>About Us</h6>
+            onClick={() => navigate("tendays")}>About Us</h6>
         </div>
 
         <div id="links">

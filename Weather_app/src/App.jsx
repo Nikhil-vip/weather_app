@@ -7,6 +7,7 @@ import Today_box from "./Today.jsx";
 import Footer from "./Footer.jsx";
 import PrivacyPolicy from "./privacy.jsx";
 import Tendays from "./tendays.jsx";
+
 function App() {
   return (
     <>
