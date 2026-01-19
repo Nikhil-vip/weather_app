@@ -1,4 +1,4 @@
-import Nav from './Navbar.jsx';
+
 const Tendays = () => {
   return (
     <>
