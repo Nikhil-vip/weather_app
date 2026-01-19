@@ -4,6 +4,7 @@ const Selection = () => {
   const handleClick = () => {
     console.log("clicked");
   }
+  const navigate = useNavigate();
   return (
     <div className="selection-bar">
       <h7 id="today" onClick={handleClick}>Today</h7>
@@ -14,7 +15,8 @@ const Selection = () => {
         });
       }}>Weekly</h7>
       <h7 id="map" onClick={handleClick}>Map</h7>
-      <h7 id="ten-days" onClick={handleClick}>10 Days</h7>
+      <h7 id="ten-days" style={{ cursor: "pointer" }}
+        onClick={() => navigate("/Tendays.jsx")}>10 Days</h7>
     </div>
   );
 }

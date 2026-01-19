@@ -1,11 +1,8 @@
 import Nav from './Navbar.jsx';
-import Selection from './Select_Bar.jsx';
 const Tendays = () => {
   return (
     <>
-      <Nav />
-      <Selection />
-      <Footer />
+      <h1>10 Days Weather Forecast Coming Soon!</h1>
     </>
   )
 }

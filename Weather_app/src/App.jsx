@@ -6,8 +6,8 @@ import Selection from "./Select_Bar.jsx";
 import Today_box from "./Today.jsx";
 import Footer from "./Footer.jsx";
 import PrivacyPolicy from "./privacy.jsx";
-import Tendays from "./tendays.jsx";
-
+import Tendays from "./Tendays.jsx";
+import About from "./About.jsx";
 function App() {
   return (
     <>
@@ -18,7 +18,7 @@ function App() {
         <Route path="/" element={<Today_box />} />
         <Route path="/privacy.jsx" element={<PrivacyPolicy />} />
         <Route path="/About.jsx" element={<About />} />
-        <Route path="/tendays.jsx" element={<Tendays />} />
+        <Route path="/Tendays.jsx" element={<Tendays />} />
       </Routes>
 
       <Footer />

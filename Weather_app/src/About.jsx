@@ -1,9 +1,8 @@
-import Privacytxt from './privacytxt.jsx';
-import "./About.css";
+import Abouttxt from './Abouttxt.jsx';
 const About = () => {
   return (
     <>
-      <Privacytxt />
+      <Abouttxt />
     </>
   )
 }
