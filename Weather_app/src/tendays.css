@@ -1,0 +1,13 @@
+#daysconatiner {
+  height: 500px;
+  width: 70%;
+  border: 1px solid black;
+  margin: auto;
+}
+
+#days {
+  height: 200px;
+  width: 100px;
+  border: 1px solid black;
+  margin: auto;
+}
