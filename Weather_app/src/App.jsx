@@ -17,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Today_box />} />
         <Route path="/privacy.jsx" element={<PrivacyPolicy />} />
+        <Route path="/About.jsx" element={<About />} />
         <Route path="/tendays.jsx" element={<Tendays />} />
       </Routes>
 

@@ -1,0 +1,16 @@
+#top {
+  background-color: #00b7ff;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+p {
+  align-self: center;
+}
+
+#text {
+  margin: 20px;
+  font-family: Arial, sans-serif;
+  align-self: center;
+}
