@@ -9,7 +9,7 @@ const Tendays = () => {
           <h5>"day"</h5>
           <div id="pic">"weatherpic"</div>
           <div id="condition">"condition"</div>
-          <div id="temp">"temprature"</div>
+          <div id="tempp">"temprature"</div>
         </div>
       </div>
     </>
