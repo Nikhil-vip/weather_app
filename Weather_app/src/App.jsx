@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import Nav from "./Navbar.jsx";
 import Selection from "./Select_Bar.jsx";
 import Today_box from "./Today.jsx";

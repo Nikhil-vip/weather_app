@@ -8,7 +8,7 @@ const Selection = () => {
         () => {
           navigate("Today.jsx")
           window.scrollTo({
-            top: 10,
+            top: 0,
             behavior: "smooth"
           });
         }}>Today</h7>
