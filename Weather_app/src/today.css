@@ -1,7 +1,13 @@
+#boddy {
+  background: linear-gradient(45deg,
+      #0091ff,
+      #2e2a95,
+      #4fa3d1);
+  ;
+}
+
 .today_box {
-  height: 300px;
-  width: 380px;
-  background-color: #b6b8b9;
+
   margin: 20px auto;
   border-radius: 25px 25px 25px 25px;
 }
@@ -23,14 +29,15 @@
 
 #weather {
   text-align: center;
-  font-size: x-large;
+  font-size: 1.5rem;
   padding-top: 10px;
-  color: rgb(26, 26, 191);
+  color: rgb(255, 255, 255);
 }
 
 #temp {
   text-align: center;
-  font-size: xx-large;
+  font-size: 3rem;
+  font-weight: bolder;
   padding-top: 10px;
   color: rgb(26, 191, 26);
 }
@@ -43,7 +50,7 @@
   background-color: #4CAF50;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 40px 40px 40px 40px;
   cursor: pointer;
 }
 
@@ -57,10 +64,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 80px;
+  height: 100px;
   width: 80%;
   margin: 20px auto;
-  background-color: #4CAF50;
+  background-color: #848b84;
   border-radius: 10px 10px 10px 10px;
   justify-content: space-around;
+
+}
+
+#weather_info {
+  display: flex;
+  flex-direction: row;
+  height: 80px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  color: blue;
+}
+
+#weather_tempp {
+  display: flex;
+  flex-direction: column;
+  margin-right: 40px;
+  font-size: 1.4rem;
+  color: aliceblue;
+}
+
+#symbol {
+  color: rgb(0, 255, 229);
 }

@@ -10,6 +10,7 @@ import PrivacyPolicy from "./privacy.jsx";
 import Tendays from "./Tendays.jsx";
 import About from "./About.jsx";
 import Mapp from "./Map.jsx"
+
 function App() {
   return (
     <>
@@ -26,6 +27,7 @@ function App() {
       </Routes>
 
       <Footer />
+
     </>
   );
 }
