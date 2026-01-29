@@ -14,20 +14,21 @@ import Mapp from "./Map.jsx"
 function App() {
   return (
     <>
-      <Nav />
-      <Selection />
+      <body>
+        <Nav />
+        <Selection />
 
-      <Routes>
-        <Route path="/" element={<Today_box />} />
-        <Route path="/Today.jsx" element={<Today_box />} />
-        <Route path="/privacy.jsx" element={<PrivacyPolicy />} />
-        <Route path="/About.jsx" element={<About />} />
-        <Route path="/Tendays.jsx" element={<Tendays />} />
-        <Route path="/Map.jsx" element={<Mapp />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Today_box />} />
+          <Route path="/Today.jsx" element={<Today_box />} />
+          <Route path="/privacy.jsx" element={<PrivacyPolicy />} />
+          <Route path="/About.jsx" element={<About />} />
+          <Route path="/Tendays.jsx" element={<Tendays />} />
+          <Route path="/Map.jsx" element={<Mapp />} />
+        </Routes>
 
-      <Footer />
-
+        <Footer />
+      </body>
     </>
   );
 }

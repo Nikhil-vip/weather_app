@@ -5,6 +5,7 @@
   margin: auto;
   display: flex;
   flex-direction: row;
+  margin-bottom: 80px;
 }
 
 #days {

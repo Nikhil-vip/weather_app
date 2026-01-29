@@ -2,3 +2,11 @@
   display: flex;
   justify-content: space-between;
 }
+
+body {
+  background: linear-gradient(45deg,
+      #0091ff,
+      #2e2a95,
+      #4fa3d1);
+  ;
+}

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import sunny from "./assets/sunny.png";
 import "./today.css";
 import bgpic from "./assets/bgpic.jpg";
+import { FaSun, FaCloud, FaCompass, FaCloudRain, FaSnowflake, FaBolt, FaSmog, FaCloudSun } from "react-icons/fa";
+
 const Today_box = () => {
   const [location, setLocation] = useState("");
   const [temperature, setTemperature] = useState("");
@@ -13,7 +14,21 @@ const Today_box = () => {
   const [latt, setLatt] = useState(null);
   const [long, setLong] = useState(null);
   const [weatherCode, setWeatherCode] = useState([]);
-  // 1. LOAD: Runs once when component mounts
+
+  // 1. Helper: Map code to Text and Icons
+  const getWeatherDetails = (code) => {
+    if (code === 0) return { text: "Clear Sky", icon: <FaSun size={50} /> };
+    if (code >= 1 && code <= 3) return { text: "Partly Cloudy", icon: <FaCloudSun size={50} /> };
+    if (code >= 45 && code <= 48) return { text: "Foggy", icon: <FaSmog size={50} /> };
+    if (code >= 51 && code <= 55) return { text: "Drizzle", icon: <FaCloud size={50} /> };
+    if (code >= 61 && code <= 65) return { text: "Rainy", icon: <FaCloudRain size={50} /> };
+    if (code >= 71 && code <= 77) return { text: "Snowy", icon: <FaSnowflake size={50} /> };
+    if (code >= 80 && code <= 82) return { text: "Rain Showers", icon: <FaCloudRain size={50} /> };
+    if (code >= 95) return { text: "Thunderstorm", icon: <FaBolt size={50} /> };
+    return { text: "Overcast", icon: <FaCloud size={50} /> };
+  };
+
+  // 2. LOAD: Session Storage
   useEffect(() => {
     const saved = sessionStorage.getItem("weatherdata");
     if (saved) {
@@ -27,132 +42,111 @@ const Today_box = () => {
       setWeatherCode(parsed.weatherCode);
       setLatt(parsed.latt);
       setLong(parsed.long);
-      // Re-map the icon based on the saved condition text or code
+
+      // Update the main icon based on saved condition code
+      const details = getWeatherDetails(parsed.currentCode);
+      setPic(details.icon);
     }
   }, []);
 
-  // 2. SAVE: Runs whenever any of these states change
+  // 3. SAVE: Sync state to Session Storage
   useEffect(() => {
     if (location || days.length > 0) {
-      const dataToSave = { location, temperature, condition, days, week_temp_max, week_temp_min, weatherCode, latt, long };
+      const dataToSave = {
+        location, temperature, condition, days,
+        week_temp_max, week_temp_min, weatherCode, latt, long
+      };
       sessionStorage.setItem("weatherdata", JSON.stringify(dataToSave));
     }
   }, [location, temperature, condition, days, week_temp_max, week_temp_min, weatherCode, latt, long]);
-  function mapWeatherCode(code) {
-    if (code === 0) return { text: "Clear Sky", img: <img src={sunny} alt="Sunny" /> };
-    if (code <= 3) return { text: "Partly Cloudy", img: "cloudy_pic_url" };
-    if (code <= 48) return { text: "Foggy", img: "fog_pic_url" };
-    if (code <= 55) return { text: "Drizzle", img: "drizzle_pic_url" };
-    if (code <= 65) return { text: "Rainy", img: "rainy_pic_url" };
-    if (code <= 77) return { text: "Snowy", img: "snow_pic_url" };
-    if (code <= 82) return { text: "Rain Showers", img: "rainy_pic_url" };
-    if (code >= 95) return { text: "Thunderstorm", img: "thunder_pic_url" };
-    return { text: "Overcast", img: "default_pic_url" };
-  }
+
+  const fetchWeatherByCoords = async (lat, lon) => {
+    try {
+      const geoRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
+      const geoData = await geoRes.json();
+      const city = geoData.city || geoData.locality || "Unknown";
+
+      const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto`);
+      const data = await res.json();
+
+      const currentDetails = getWeatherDetails(data.current_weather.weathercode);
+
+      setLocation(city);
+      setTemperature(data.current_weather.temperature + "°C");
+      setCondition(currentDetails.text);
+      setPic(currentDetails.icon);
+      setDays(data.daily.time);
+      setWeek_temp_max(data.daily.temperature_2m_max);
+      setWeek_temp_min(data.daily.temperature_2m_min);
+      setWeatherCode(data.daily.weathercode);
+      setLatt(lat);
+      setLong(lon);
+
+    } catch (err) {
+      console.error("Error fetching weather:", err);
+    }
+  };
 
   const askLocation = () => {
     if (!navigator.geolocation) {
       alert("Geolocation not supported");
       return;
     }
-    navigator.geolocation.getCurrentPosition((position) => {
-      const askLocation = () => {
-        if (!navigator.geolocation) {
-          alert("Geolocation not supported");
-          return;
-        }
-
-        navigator.geolocation.getCurrentPosition((position) => {
-
-        });
-      };
-      fetchWeatherByCoords(position.coords.latitude, position.coords.longitude);
-    });
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        fetchWeatherByCoords(position.coords.latitude, position.coords.longitude);
+      },
+      (error) => alert("Location access denied")
+    );
   };
-  const getConditionText = (code) => {
-    if (code === 0) return "Clear Sky";
-    if (code >= 1 && code <= 3) return "Partly Cloudy";
-    if (code >= 45 && code <= 48) return "Foggy";
-    if (code >= 51 && code <= 55) return "Drizzle";
-    if (code >= 61 && code <= 65) return "Rainy";
-    if (code >= 71 && code <= 77) return "Snowy";
-    if (code >= 80 && code <= 82) return "Rain Showers";
-    if (code >= 95) return "Thunderstorm";
-    return "Overcast";
-  };
-  const fetchWeatherByCoords = async (lat, lon) => {
-    try {
-      const geoRes = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`);
-      const geoData = await geoRes.json();
-      const city = geoData.city || geoData.locality || "Unknown";
-      setLocation(city);
 
-      const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto`);
-      const data = await res.json();
-
-      const weather = mapWeatherCode(data.current_weather.weathercode);
-      setTemperature(data.current_weather.temperature + "°C");
-      setCondition(weather.text);
-      setPic(weather.img);
-      setDays(data.daily.time);
-      setWeek_temp_max(data.daily.temperature_2m_max);
-      setWeek_temp_min(data.daily.temperature_2m_min);
-      setWeatherCode(data.daily.weathercode);
-      sessionStorage.setItem("weathercode", weatherCode);
-      console.log(weatherCode);
-      //setting state
-      setLatt(lat);
-      setLong(lon);
-      //now save
-      sessionStorage.setItem("lat", lat);
-      sessionStorage.setItem("lon", lon);
-      sessionStorage.setItem("weathercode", weatherCode);
-    } catch (err) {
-      console.error("Error:", err);
-    }
-
-  };
   return (
-    <>
-      <body id="boddy">
-        <div className="today_box"
-          style={{
-            height: "300px",
-            width: "380px",
-            backgroundImage: `url(${bgpic})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}>
-          <h3 id="location">{location || "Waiting for location..."}</h3>
-          <div id="pic">{pic}</div>
-          <h4 id="weather">{condition}</h4>
-          <div id="temp">{temperature}</div>
-        </div>
+    <div className="weather-container">
+      <div className="today_box"
+        style={{
+          height: "300px",
+          width: "380px",
+          backgroundImage: `url(${bgpic})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          borderRadius: '15px',
+          color: 'white'
+        }}>
+        <h3 id="location">{location || "Waiting for location..."}</h3>
+        <div id="pic">{pic}</div>
+        <h4 id="weather">{condition}</h4>
+        <div id="temp">{temperature}</div>
+      </div>
 
-        <button id="location_button" onClick={askLocation}>
-          Current Location
-        </button>
+      <button id="location_button" onClick={askLocation} style={{ marginTop: '20px', cursor: 'pointer' }}>
+        Current Location <FaCompass size={30} />
+      </button>
 
-        <h1 id="weektitle">Next 7 Days</h1>
-        <h5 className="weekly">
-          {Array.from({ length: 7 }).map((_, i) => (
-            <>
-              <div id="weekkly" key={i}>
-                <h3>{days[i] || "-----"}</h3>
-                <div id="weather_info">
-                  <div id="condd">{getConditionText(weatherCode[i])}</div>
-                  <div id="weather_tempp">
-                    <div>{week_temp_max[i] || "-----"}°C </div>
-                    <div>{week_temp_min[i] || "-----"}°C</div></div>
-                  <div id="symbol">hi</div>
+      {latt && long && (
+        <>
+          <h1 id="weektitle">Next 7 Days</h1>
+          <div className="weekly-grid">
+            {days.map((day, i) => {
+              const dayDetails = getWeatherDetails(weatherCode[i]);
+              return (
+                <div id="weekly_box" key={day}>
+                  <h3>{day}</h3>
+                  <div id="weather_info">
+                    <div id="condd">{dayDetails.text}</div>
+                    <div id="weather_tempp">
+                      <span>Max: {week_temp_max[i]}°C</span>
+                      <span>Min: {week_temp_min[i]}°C</span>
+                    </div>
+                    <div id="symbol">{dayDetails.icon}</div>
+                  </div>
                 </div>
-              </div>
+              );
+            })}
+          </div>
+        </>
+      )}
+    </div>
 
-            </>
-          ))}
-        </h5>
-      </body>
-    </>
   );
 };
 
