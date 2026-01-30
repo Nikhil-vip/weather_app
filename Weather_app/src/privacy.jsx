@@ -1,4 +1,4 @@
-import Privacytxt from './privacytxt.jsx';
+import Privacytxt from './Privacytxt.jsx';
 const PrivacyPolicy = () => {
   return (
     <>
