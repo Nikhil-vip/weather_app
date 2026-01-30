@@ -14,8 +14,8 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const Mapp = () => {
-  const lat = parseFloat(sessionStorage.getItem("lat")) || 51.505;
-  const lon = parseFloat(sessionStorage.getItem("lon")) || -0.09;
+  const lat = parseFloat(sessionStorage.getItem("latt")) || 51.505;
+  const lon = parseFloat(sessionStorage.getItem("long")) || -0.09;
   const position = [lat, lon];
 
   const key = "1dbec7dca71d665f91ade90ec2169ba8";
