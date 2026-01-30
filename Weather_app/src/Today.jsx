@@ -81,7 +81,8 @@ const Today_box = () => {
       setWeatherCode(data.daily.weathercode);
       setLatt(lat);
       setLong(lon);
-
+      sessionStorage.setItem("latt", lat);
+      sessionStorage.setItem("long", lon);
     } catch (err) {
       console.error("Error fetching weather:", err);
     }
